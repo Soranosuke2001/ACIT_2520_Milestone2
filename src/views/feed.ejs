@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+</head>
+<body>
+    <section class="profile">
+        <div class="profile-pic">
+            <img class="profile-image" src="/pictures?<%= db[index].username %>?<%= db[index].profile %>">
+        </div>
+        <div class="profile-info">
+            <div class="account-info grid-span-3">
+                <!-- put the username for the user -->
+                <p class="content"><%= db[index].username %> </p>
+                
+                <!-- add the edit button -->
+                <button class="btn">
+                    Edit Profile
+                </button>
+                <!-- added the gear icon -->
+                <button class="btn">
+                    Gear Icon
+                </button>
+            </div>
+            <div class="follow-info grid-span-3">
+                <!-- add the number of posts -->
+                <p class="content"><%= db[index].stats["posts"] %> posts</p>
+                <!-- add the number of followers -->
+                <p class="content"><%= db[index].stats["followers"] %> followers</p>
+                <!-- add the number of following -->
+                <p class="content"><%= db[index].stats["following"] %> following</p>
+            </div>
+            <div class="description grid-span-3">
+                <!-- add the description of the profile -->
+                <p><%= db[index].description %></p>
+            </div>
+        </div>
+    </section>
+    <section class="images">
+        <% for (const image of db[index].photos) {%> 
+            <div class="image-container">
+                <img class="image" src="/pictures?<%= db[index].username %>?<%= image %>">
+            </div>
+        <% } %> 
+    </section> 
+
+    <style>
+        .profile {
+            display: grid;
+            grid-template-columns: 25% 50% 25%;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-rows: 33% 33% 33%;
+        }
+
+        .grid-span-3 {
+            grid-column: span 3;
+            text-align: center;
+        }
+
+        .content {
+            font-size: 150%;
+            width: fit-content;
+            margin: 0;
+            display: inline-block;
+        }
+
+        .account-info {
+            display: flex;
+            justify-content: space-around;
+            padding: 10% 0 5% 0;
+        }
+        
+        .btn {
+            font-size: 130%;
+            width: fit-content;
+            height: fit-content;
+            
+            /* This is a template taken from https://getcssscan.com/css-buttons-examples */
+            color: #333333; 
+            background-color: rgba(51, 51, 51, 0.05);
+            border-radius: 8px;
+            border-width: 0;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            line-height: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 10px 12px;
+            text-align: center;
+            vertical-align: baseline;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .follow-info {
+            display: flex;
+            justify-content: space-around;
+            padding: 5% 0 10% 0;
+        }
+
+        .description {
+            text-align: center;
+            font-size: 150%;
+        }
+
+        .profile-pic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: auto;
+            height: auto;
+            max-width: 60%;
+            max-height: 60%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .images {
+            margin: 0 10% 0 10%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+    </style>
+</body>
+</html>

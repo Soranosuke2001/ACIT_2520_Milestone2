@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <% for (const user of db) {%>
+        <div class="user-cards">
+            <div class="image">
+                <img class="profile-pic" src="/photos?<%= user.username %>?<%= user.profile %>">
+            </div>
+            <div class="options">
+
+                <form class="upload-btns" method="POST" action="/images" enctype="multipart/form-data">
+                    <input type="file" id="<%= user.username %>" name="<%= user.username %>" accept="image/png, image/jpg, image/jpeg" hidden multiple/>
+                    
+                    <label class="upload form-btn" id="upload-<%= user.username %>" for="<%= user.username %>" onclick="displayBtn(`<%= user.username %>`)">Upload</label>
+                    <input class="form-btn" type="submit" id="input-<%= user.username %>" for="<%= user.username %>" value="upload" hidden="true" onclick="displayBtn(`<%= user.username %>`)"/>
+                </form>
+
+
+                <form method="GET" action="/feed">
+                    <button class="element form-btn" name="username" value="<%= user.username %>">
+                        <%= user.username %>
+                    </button>
+                </form>                
+            </div>
+        </div>
+    <% } %>
+    <script>
+        const displayBtn = (user) => {
+            let uploadBtn = document.getElementById(`upload-${user}`);
+            let submitBtn = document.getElementById(`input-${user}`);
+
+            if (uploadBtn.style.display == "none") {
+                uploadBtn.style.display = "block";
+                submitBtn.style.display = "none"
+            } else {
+                uploadBtn.style.display = "none";
+                submitBtn.style.display = "block";
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #F8F9FA;
+        }
+        
+        .user-cards {
+            width: 65%;
+            background: white;
+            margin: 0.5em;
+            border-radius: 0.5em;
+        }
+        
+        .user-cards {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 100%;
+            gap: 2rem;
+            align-self: center;
+            text-align: center;
+            
+            /* display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 30%;
+            text-align: center; */
+        }
+
+        .upload-btns {
+            text-align: center;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            padding: 0.8em 0 0.8em 0;
+        }
+
+        .form-btn {
+            margin: 0.5em 0 0.5em 0;
+            padding: 0.5em;
+            border: black solid;
+            border-radius: 0.5em;
+            background: white;
+            font-size: 20px;
+        }
+
+    </style>
+</body>
+</html>
